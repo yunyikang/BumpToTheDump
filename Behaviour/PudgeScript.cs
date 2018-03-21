@@ -10,13 +10,27 @@ public class NewBehaviourScript : NetworkBehaviour
     private Rigidbody rb;
     public bool isFlat;
 
-
+    
     private Vector3 _playerSpawnPointpos; // player to spawn here
+
+    /*
+     Things to do:
+     - basic movement (figure out a way to move without rolling) 
+        - with keyboard for computer
+        - accelerometer for phone
+     - integrate movement with animation(s)
+     - make sure map is able to be navigated by puj
+
+     */
 
     // Use this for initialization
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        // prevents rolling
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+        // initialise rigidbody
+        this.rb = GetComponent<Rigidbody>();
+        // detect phone movement
         isFlat = true;
     }
 
@@ -26,19 +40,22 @@ public class NewBehaviourScript : NetworkBehaviour
     {
         var speed = 10.0f;
 
+        // current coordinates of player - for use later
+        var position = transform.position;
        
+        // movement with keyboard
+        float moveHorizontal = Input.GetAxis("Horizontal");
+        float moveVertical = Input.GetAxis("Vertical");
 
-        // test movement using arrow keys (pc version)
-        var x = Input.GetAxis("Horizontal") *  Time.deltaTime * speed;
-        var y = Input.GetAxis("Vertical")  * Time.deltaTime * speed;
-        transform.Translate(x, 0.0f, -y);
+        Vector3 movement = new Vector3 (-moveHorizontal, 0.0f, -moveVertical);
 
+        // adding force to move
+        this.rb.AddForce(movement * speed);
 
-
-        if (!isLocalPlayer)
-        {
-            return;
-        }
+        // if (!isLocalPlayer)
+        // {
+        //     return;
+        // }
 
         // Android movement section
         // Vector3 tilt = Input.acceleration;
