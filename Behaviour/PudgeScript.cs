@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class NewBehaviourScript : NetworkBehaviour
+public class PudgeController : NetworkBehaviour
 {
 
     public float speed;
