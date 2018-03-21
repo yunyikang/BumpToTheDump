@@ -16,10 +16,11 @@ public class PudgeController : NetworkBehaviour
     /*
      Things to do:
      - basic movement (figure out a way to move without rolling) 
-        - with keyboard for computer
+        - with keyboard for computer (done)
         - accelerometer for phone
-     - integrate movement with animation(s)
-     - make sure map is able to be navigated by puj
+     - integrate movement with animation(s) 
+     - make sure map is able to be navigated by puj (done)
+     - lock screen position (no rotation)
 
      */
 
@@ -52,20 +53,21 @@ public class PudgeController : NetworkBehaviour
         // adding force to move
         this.rb.AddForce(movement * speed);
 
-        // if (!isLocalPlayer)
-        // {
-        //     return;
-        // }
+        // movement with phone
+        if (!isLocalPlayer)
+        {
+            return;
+        }
 
         // Android movement section
-        // Vector3 tilt = Input.acceleration;
-        // if (isFlat)
-        // {
-        //     tilt = Quaternion.Euler(90, 0, 0) * tilt;
-        // }
+        Vector3 tilt = Input.acceleration;
+        if (isFlat)
+        {
+            tilt = Quaternion.Euler(90, 0, 0) * tilt * speed;
+        }
 
-        // // handles accelerometer
-        // rb.AddForce(tilt);
+        // handles accelerometer
+        rb.AddForce(-tilt);
 
     }
 
