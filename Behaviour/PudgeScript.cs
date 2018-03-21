@@ -17,10 +17,10 @@ public class PudgeController : NetworkBehaviour
      Things to do:
      - basic movement (figure out a way to move without rolling) 
         - with keyboard for computer (done)
-        - accelerometer for phone
+        - accelerometer for phone (shifted to joystick) (done)
      - integrate movement with animation(s) 
      - make sure map is able to be navigated by puj (done)
-     - lock screen position (no rotation)
+     - lock screen position (no rotation) (done)
 
      */
 
